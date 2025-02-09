@@ -5,10 +5,11 @@ WORKDIR /source
 # Copiar archivos de solución y proyecto
 COPY global.json . # Asegurar compatibilidad con .NET 8.0
 COPY *.sln .
-COPY ERP.Domain/ ERP.Domain/
-COPY ERP.Application/ ERP.Application/
-COPY ERP.Infrastructure/ ERP.Infrastructure/
-COPY ERP.API/ ERP.API/
+RUN mkdir -p ERP.Domain ERP.Application ERP.Infrastructure ERP.API
+COPY ERP.Domain/*.csproj ERP.Domain/
+COPY ERP.Application/*.csproj ERP.Application/
+COPY ERP.Infrastructure/*.csproj ERP.Infrastructure/
+COPY ERP.API/*.csproj ERP.API/
 
 # Restaurar dependencias con SDK 8.0
 RUN dotnet restore --use-current-runtime
