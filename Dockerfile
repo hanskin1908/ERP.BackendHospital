@@ -1,31 +1,36 @@
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-WORKDIR /source
+# Primera etapa - Restaurar dependencias
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS restore
+WORKDIR /src
+COPY ["ERP.Domain/*.csproj", "ERP.Domain/"]
+COPY ["ERP.Application/*.csproj", "ERP.Application/"]
+COPY ["ERP.Infrastructure/*.csproj", "ERP.Infrastructure/"]
+COPY ["ERP.API/*.csproj", "ERP.API/"]
+COPY ["ERP.Backend.sln", "."]
+RUN dotnet restore "ERP.API/ERP.API.csproj"
 
-# Copiar los archivos de proyecto
-COPY ERP.Domain/ERP.Domain.csproj ERP.Domain/
-COPY ERP.Application/ERP.Application.csproj ERP.Application/
-COPY ERP.Infrastructure/ERP.Infrastructure.csproj ERP.Infrastructure/
-COPY ERP.API/ERP.API.csproj ERP.API/
-COPY ERP.Backend.sln .
-
-# Restaurar dependencias
-RUN dotnet restore ERP.API/ERP.API.csproj
-
-# Copiar el resto del código fuente
+# Segunda etapa - Build
+FROM restore AS build
 COPY . .
+RUN dotnet build "ERP.API/ERP.API.csproj" -c Release -o /app/build --no-restore
 
-# Publicar la aplicación
-RUN dotnet publish ERP.API/ERP.API.csproj -c Release -o /app --no-restore
+# Tercera etapa - Publish
+FROM build AS publish
+RUN dotnet publish "ERP.API/ERP.API.csproj" -c Release -o /app/publish --no-restore /p:UseAppHost=false
 
-# Imagen final
+# Etapa final
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
-COPY --from=build /app .
-
+COPY --from=publish /app/publish .
 ENV ASPNETCORE_URLS=http://+:${PORT}
 EXPOSE ${PORT}
 
-HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
-    CMD curl --fail http://localhost:${PORT}/health || exit 1
+# Agregar script de inicio con mensaje
+COPY <<EOF /app/start.sh
+#!/bin/sh
+echo "Iniciando la aplicación..."
+dotnet ERP.API.dll
+echo "Aplicación iniciada exitosamente en el puerto \${PORT}"
+EOF
 
-ENTRYPOINT ["dotnet", "ERP.API.dll"]
+RUN chmod +x /app/start.sh
+ENTRYPOINT ["/app/start.sh"]
