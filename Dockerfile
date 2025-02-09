@@ -21,16 +21,11 @@ RUN dotnet publish "ERP.API/ERP.API.csproj" -c Release -o /app/publish --no-rest
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENV ASPNETCORE_URLS=http://+:${PORT}
-EXPOSE ${PORT}
 
-# Agregar script de inicio con mensaje
-COPY <<EOF /app/start.sh
-#!/bin/sh
-echo "Iniciando la aplicación..."
-dotnet ERP.API.dll
-echo "Aplicación iniciada exitosamente en el puerto \${PORT}"
-EOF
+# Configurar puerto por defecto en caso de que no se proporcione
+ENV PORT=8080
+ENV ASPNETCORE_URLS="http://+:${PORT}"
 
-RUN chmod +x /app/start.sh
-ENTRYPOINT ["/app/start.sh"]
+EXPOSE 8080
+
+ENTRYPOINT ["dotnet", "ERP.API.dll"]
