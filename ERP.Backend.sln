@@ -3,23 +3,20 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ERP.Domain", "ERP.Domain\ERP.Domain.csproj", "{0FF9A06C-8374-4A4C-9C14-1AB4394AB06F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ERP.Domain", "ERP.Domain\ERP.Domain.csproj", "{0FF9A06C-8374-4A4C-9C14-1AB4394AB06F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ERP.Application", "ERP.Application\ERP.Application.csproj", "{08FD3FFE-713E-4BF5-8DC4-3AA2E86F09FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ERP.Application", "ERP.Application\ERP.Application.csproj", "{08FD3FFE-713E-4BF5-8DC4-3AA2E86F09FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ERP.Infrastructure", "ERP.Infrastructure\ERP.Infrastructure.csproj", "{DDF6B26C-D2E6-41E6-ABA6-954D59E9F4EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ERP.Infrastructure", "ERP.Infrastructure\ERP.Infrastructure.csproj", "{DDF6B26C-D2E6-41E6-ABA6-954D59E9F4EE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ERP.API", "ERP.API\ERP.API.csproj", "{179CC240-0D4E-4513-A5FD-2DFC999AD562}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ERP.API", "ERP.API\ERP.API.csproj", "{179CC240-0D4E-4513-A5FD-2DFC999AD562}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ERP.Tests", "ERP.Tests\ERP.Tests.csproj", "{0B424B77-B4CA-4ABD-B454-F406B77B0AF2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ERP.Tests", "ERP.Tests\ERP.Tests.csproj", "{0B424B77-B4CA-4ABD-B454-F406B77B0AF2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{0FF9A06C-8374-4A4C-9C14-1AB4394AB06F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -42,5 +39,8 @@ Global
 		{0B424B77-B4CA-4ABD-B454-F406B77B0AF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0B424B77-B4CA-4ABD-B454-F406B77B0AF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0B424B77-B4CA-4ABD-B454-F406B77B0AF2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal
