@@ -25,4 +25,7 @@ COPY --from=build /app .
 ENV ASPNETCORE_URLS=http://+:${PORT}
 EXPOSE ${PORT}
 
+HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
+    CMD curl --fail http://localhost:${PORT}/health || exit 1
+
 ENTRYPOINT ["dotnet", "ERP.API.dll"]
