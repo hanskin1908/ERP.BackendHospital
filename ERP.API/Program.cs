@@ -90,7 +90,14 @@ builder.Services.AddScoped<IHistoriaClinicaServicio, HistoriaClinicaServicio>();
 // Para Facturación
 builder.Services.AddScoped<IFacturaRepositorio, FacturaRepositorio>();
 builder.Services.AddScoped<IFacturacionServicio, FacturacionServicio>();
+var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+builder.WebHost.UseUrls($"http://0.0.0.0:{port}", $"https://0.0.0.0:{port}");
 
+// Configurar HTTPS
+builder.Services.AddHttpsRedirection(options =>
+{
+    options.HttpsPort = Convert.ToInt32(port);
+});
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowLocal",

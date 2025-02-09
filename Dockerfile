@@ -1,4 +1,12 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+
+WORKDIR /app
+EXPOSE ${PORT}
+ENV ASPNETCORE_URLS="http://+:${PORT};https://+:${PORT}"
+ENV ASPNETCORE_HTTPS_PORT=${PORT}
+
+
+
 WORKDIR /source
 
 # Copiar el archivo de solución
