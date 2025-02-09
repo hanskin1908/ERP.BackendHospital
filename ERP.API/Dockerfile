@@ -1,32 +1,29 @@
-FROM mcr.microsoft.com/dotnet/aspnet:8.0-jammy AS base
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /app
-EXPOSE ${PORT}
 
-FROM mcr.microsoft.com/dotnet/sdk:8.0-jammy AS build
-WORKDIR /src
+# Copiar y restaurar como capas distintas
+COPY *.sln .
+COPY ERP.Domain/*.csproj ./ERP.Domain/
+COPY ERP.Application/*.csproj ./ERP.Application/
+COPY ERP.Infrastructure/*.csproj ./ERP.Infrastructure/
+COPY ERP.API/*.csproj ./ERP.API/
 
-# Copiar proyectos individualmente
-COPY ["ERP.Domain/ERP.Domain.csproj", "ERP.Domain/"]
-COPY ["ERP.Application/ERP.Application.csproj", "ERP.Application/"]
-COPY ["ERP.Infrastructure/ERP.Infrastructure.csproj", "ERP.Infrastructure/"]
-COPY ["ERP.API/ERP.API.csproj", "ERP.API/"]
+RUN dotnet restore
 
-# Restaurar dependencias
-RUN dotnet restore "ERP.API/ERP.API.csproj"
+# Copiar todo lo demás y construir
+COPY ERP.Domain/. ./ERP.Domain/
+COPY ERP.Application/. ./ERP.Application/
+COPY ERP.Infrastructure/. ./ERP.Infrastructure/
+COPY ERP.API/. ./ERP.API/
 
-# Copiar todo el código fuente
-COPY . .
+WORKDIR /app/ERP.API
+RUN dotnet publish -c Release -o out
 
-# Construir la aplicación
-WORKDIR "/src/ERP.API"
-RUN dotnet build "ERP.API.csproj" -c Release -o /app/build
-
-# Publicar la aplicación
-FROM build AS publish
-RUN dotnet publish "ERP.API.csproj" -c Release -o /app/publish
-
-# Imagen final
-FROM base AS final
+# Construir imagen de runtime
+FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
-COPY --from=publish /app/publish .
+COPY --from=build /app/ERP.API/out ./
+
+ENV ASPNETCORE_URLS=http://+:${PORT}
+
 ENTRYPOINT ["dotnet", "ERP.API.dll"]
