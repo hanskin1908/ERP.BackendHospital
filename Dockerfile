@@ -1,17 +1,17 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /source
 
-# Copiar el archivo de solución primero
+# Copiar el archivo de solución
 COPY ERP.Backend.sln .
 
-# Copiar archivos de proyecto
+# Copiar los archivos de proyecto necesarios (Excluyendo ERP.Tests)
 COPY ERP.Domain/ ERP.Domain/
 COPY ERP.Application/ ERP.Application/
 COPY ERP.Infrastructure/ ERP.Infrastructure/
 COPY ERP.API/ ERP.API/
 
-# Restaurar dependencias usando el archivo de solución
-RUN dotnet restore ERP.Backend.sln
+# Restaurar sin el proyecto de pruebas
+RUN dotnet restore ERP.API/ERP.API.csproj
 
 # Copiar el resto de archivos y publicar
 COPY . .
