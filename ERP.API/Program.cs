@@ -144,12 +144,12 @@ using (var scope = app.Services.CreateScope())
         logger.LogError(ex, "Error al sembrar datos iniciales.");
     }
 }
-// Configurar el pipeline de HTTP
-if (app.Environment.IsDevelopment())
+app.UseSwagger();
+app.UseSwaggerUI(c =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "ERP API V1");
+    c.RoutePrefix = "swagger";
+});
 
 app.UseHttpsRedirection();
 
