@@ -28,11 +28,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Agregar servicios al contenedor
 
-// Configuraci髇 de la conexi髇 a la base de datos
+// Configuraci贸n de la conexi贸n a la base de datos
 builder.Services.AddDbContext<ContextoDatos>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Configuraci髇 de la autenticaci髇 JWT
+// Configuraci贸n de la autenticaci贸n JWT
 var claveSecreta = builder.Configuration["Jwt:ClaveSecreta"];
 var key = Encoding.UTF8.GetBytes(claveSecreta);
 
@@ -60,7 +60,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Registrar dependencias de aplicaci髇 y repositorios
+// Registrar dependencias de aplicaci贸n y repositorios
 builder.Services.AddScoped<IAutenticacionServicio, AutenticacionServicio>();
 builder.Services.AddScoped<IAutenticacionRepositorio, AutenticacionRepositorio>();
 
@@ -77,7 +77,7 @@ builder.Services.AddScoped<ERP.Application.Autenticacion.Interfaces.IRolReposito
 
 builder.Services.AddScoped<ERP.Application.Pacientes.Interfaces.IPacienteServicio, ERP.Application.Pacientes.Servicios.PacienteServicio>();
 builder.Services.AddScoped<ERP.Application.Pacientes.Interfaces.IPacienteRepositorio, ERP.Infrastructure.Pacientes.Repositorios.PacienteRepositorio>();
-// Registrar otras dependencias seg鷑 se vayan agregando (Pacientes, Citas, Facturaci髇, etc.)
+// Registrar otras dependencias seg煤n se vayan agregando (Pacientes, Citas, Facturaci贸n, etc.)
 builder.Services.AddScoped<ISuscripcionRepositorio, SuscripcionRepositorio>();
 builder.Services.AddScoped<ISuscripcionServicio, SuscripcionServicio>();
 
@@ -87,7 +87,7 @@ builder.Services.AddScoped<ICitaServicio, CitaServicio>();
 builder.Services.AddScoped<IHistoriaClinicaRepositorio, HistoriaClinicaRepositorio>();
 builder.Services.AddScoped<IHistoriaClinicaServicio, HistoriaClinicaServicio>();
 
-// Para Facturaci髇
+// Para Facturaci贸n
 builder.Services.AddScoped<IFacturaRepositorio, FacturaRepositorio>();
 builder.Services.AddScoped<IFacturacionServicio, FacturacionServicio>();
 
@@ -103,7 +103,7 @@ builder.WebHost.UseUrls($"http://+:{port}");
 // Configurar para usar solo HTTP
 
 
-// Deshabilitar redirecci髇 HTTPS
+// Deshabilitar redirecci贸n HTTPS
 builder.Services.AddHttpsRedirection(options =>
 {
     options.HttpsPort = null;
@@ -113,7 +113,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowLocal",
         policy =>
         {
-            policy.WithOrigins("http://localhost:4200")
+            policy.WithOrigins("https://erpbackendhospital-production.up.railway.app/")
                   .AllowAnyMethod()
                   .AllowAnyHeader();
         });
@@ -129,7 +129,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-// Ejecutar SeedData al iniciar la aplicaci髇
+// Ejecutar SeedData al iniciar la aplicaci贸n
 using (var scope = app.Services.CreateScope())
 {
     var servicios = scope.ServiceProvider;
