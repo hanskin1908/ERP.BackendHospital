@@ -113,7 +113,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowLocal",
         policy =>
         {
-            policy.WithOrigins("https://erpbackendhospital-production.up.railway.app/")
+            policy.WithOrigins("https://erpbackendhospital-production.up.railway.app")
                   .AllowAnyMethod()
                   .AllowAnyHeader();
         });
