@@ -5,7 +5,7 @@ Bienvenido al repositorio del **backend** de nuestro sistema de gestión clínic
 - **Lenguaje principal:** C#  
 - **Framework:** .NET 8  
 - **Base de Datos:** SQL Server  
-- **Arquitectura:** Basada en capas con principios SOLID  
+- **Arquitectura:** DDD  
 - **Patrones de diseño utilizados:** Repository Pattern, Dependency Injection, Unit of Work  
 - **Autenticación y Seguridad:** JSON Web Token (JWT) y políticas de acceso por roles  
 
