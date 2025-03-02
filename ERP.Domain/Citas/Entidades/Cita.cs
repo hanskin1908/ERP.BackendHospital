@@ -23,8 +23,8 @@ namespace ERP.Domain.Citas.Entidades
         public DateTime FechaHora { get; set; }
 
         [Required]
-        [MaxLength(50)]
-        public string Estado { get; set; } // Pendiente, Confirmada, Cancelada, Completada
+      
+        public EstadoCita Estado { get; set; } // Pendiente, Confirmada, Cancelada, Completada
 
         [MaxLength(255)]
         public string Motivo { get; set; }
