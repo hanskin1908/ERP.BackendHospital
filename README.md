@@ -6,7 +6,7 @@ Bienvenido al repositorio del **backend** de nuestro sistema de gestión clínic
 - **Framework:** .NET 8  
 - **Base de Datos:** SQL Server  
 - **Arquitectura:** DDD  
-- **Patrones de diseño utilizados:** Repository Pattern, Dependency Injection, Unit of Work  
+- **Patrones de diseño utilizados:** Repository Pattern, Dependency Injection
 - **Autenticación y Seguridad:** JSON Web Token (JWT) y políticas de acceso por roles  
 
 ---
@@ -51,7 +51,7 @@ Este backend sigue una arquitectura **modular** y **escalable**, separando las r
 
 ### **✅ Patrones de Diseño**
 - **Repository Pattern** - Abstracción de la persistencia de datos.
-- **Unit of Work** - Control transaccional en operaciones de base de datos.
+
 - **Dependency Injection** - Modularidad y fácil prueba de componentes.
 
 ---
