@@ -8,7 +8,7 @@ dotnet new sln -n ERP.Backend
 
 echo Creando el proyecto ERP.Domain...
 dotnet new classlib -n ERP.Domain
-
+---
 echo Creando el proyecto ERP.Application...
 dotnet new classlib -n ERP.Application
 
