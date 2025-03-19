@@ -35,5 +35,7 @@ namespace ERP.Domain.Citas.Entidades
 
         [ForeignKey("IdMedico")]
         public virtual Usuario Medico { get; set; }
+
+        ///
     }
 }
